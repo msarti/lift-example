@@ -1,6 +1,7 @@
 package bootstrap.liftweb
 
 import _root_.net.liftweb.util._
+
 import _root_.net.liftweb.common._
 import _root_.net.liftweb.http._
 import _root_.net.liftweb.http.provider._
@@ -10,8 +11,7 @@ import Helpers._
 import _root_.net.liftweb.mapper.{DB, ConnectionManager, Schemifier, DefaultConnectionIdentifier, StandardDBVendor}
 import _root_.java.sql.{Connection, DriverManager}
 import _root_.com.elogiclab.lift_example.model._
-
-
+import com.elogiclab.lift_example.lib.RestExample
 /**
  * A class that's instantiated early and run.  It allows the application
  * to modify lift's environment
@@ -60,6 +60,7 @@ class Boot {
     LiftRules.early.append(makeUtf8)
 
     LiftRules.loggedInTest = Full(() => User.loggedIn_?)
+    LiftRules.statelessDispatchTable.append(RestExample)
 
     S.addAround(DB.buildLoanWrapper)
   }
